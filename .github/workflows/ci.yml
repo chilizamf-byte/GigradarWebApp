@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate HTML
+        run: npx --yes htmlhint "*.html"
+
+      - name: Validate sitemap.xml
+        run: python3 -c "import xml.dom.minidom; xml.dom.minidom.parse('sitemap.xml')"
